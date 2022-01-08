@@ -1,79 +1,21 @@
-import { createContext, useState, useEffect } from "react"
-import { NewRoom } from "./pages/NewRoom"
-import { Home } from "./pages/Home"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-} from "react-router-dom";
-import { auth } from "./services/firebase";
+import { NewRoom } from "./pages/NewRoom";
+import { Home } from "./pages/Home";
 
-type User = {
-	id: string,
-	name: string,
-	avatar: string
-}
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-type AuthContextType = {
-	user: User | undefined;
-	signInWithGoogle: () => Promise<void>;
-}
+import { AuthContextProvider } from "./contexts/AuthContext";
 
-export const AuthContext =  createContext({} as AuthContextType)
-
-function App(){
-const [user, setUser] = useState<User>()
-
-useEffect(() => {
-	auth.onAuthStateChanged(user =>{
-		if (user) {
-			const { displayName, photoURL, uid } = user
-
-			if (!displayName || !photoURL ) {
-				throw new Error("Missing information from Google Account.")
-			}
-			setUser({
-				id: uid,
-				name: displayName,
-				avatar: photoURL
-
-			})
-
-		}
-	})
-}, [])
-
-	async function signInWithGoogle() {
-		const provider = new GoogleAuthProvider();
-        const auth = getAuth();
-		const result = await signInWithPopup(auth, provider)
-
-        if (result.user){
-			const { displayName, photoURL, uid } = result.user
-
-			if (!displayName || !photoURL ) {
-				throw new Error("Missing information from Google Account.")
-			}
-			setUser({
-				id: uid,
-				name: displayName,
-				avatar: photoURL
-
-			})
-		}
-	}
-	
-	return (
-		<BrowserRouter>
-			<AuthContext.Provider value={{user, signInWithGoogle}}>
-				<Routes>
-			 		 <Route path="/" element={<Home/>}/>
-			  		<Route path="/rooms/new" element={<NewRoom/>}/>
-				</Routes>
-			</AuthContext.Provider>
-	  </BrowserRouter>
-	)
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rooms/new" element={<NewRoom />} />
+        </Routes>
+      </AuthContextProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;
