@@ -4,14 +4,15 @@ import logoImg from "../assets/images/logo.svg";
 import "../styles/auth.scss";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
-import { set, ref} from "firebase/database";
+import { set, ref, push } from "firebase/database";
 import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
-
+import { useNavigate } from "react-router-dom";
 
 export function NewRoom() {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [newRoom, setNewRoom] = useState("");
+  let navigate = useNavigate();
 
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
@@ -20,11 +21,12 @@ export function NewRoom() {
       return;
     }
 
- 
-    const firebaseRoom = await set(ref(database, 'rooms'), {
-        tittle: newRoom,
-        authorId: user?.id,
-    })
+    const firebaseRoom = await push(ref(database, "rooms"), {
+      tittle: newRoom,
+      authorId: user?.id,
+    });
+
+    navigate(`/rooms/${firebaseRoom.key}`)
   }
 
   return (
