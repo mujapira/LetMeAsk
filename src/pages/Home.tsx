@@ -9,21 +9,21 @@ import { useAuth } from "../hooks/useAuth";
 
 export function Home() {
   let navigate = useNavigate();
-  const { signInWithGoogle, user } = useAuth()
+  const { signInWithGoogle, user } = useAuth();
+  const auth = getAuth();
 
   async function handleCreateRoom() {
     if (!user) {
       await signInWithGoogle();
     }
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
 
     signInWithPopup(auth, provider).then((result) => {
       navigate("/rooms/new");
 
       // This gives you a Google Access Token. You can use it to access the Google API.
-      //const credential = GoogleAuthProvider.credentialFromResult(result);
-      //const token = credential.accessToken;
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
       // The signed-in user info.
       // const user = result.user;
       // ...
