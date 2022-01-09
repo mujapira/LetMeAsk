@@ -8,7 +8,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuth } from "../hooks/useAuth";
 import { FormEvent, useState } from "react";
 import { database } from "../services/firebase";
-import { ref, child, get } from "firebase/database";
+import { ref, get } from "firebase/database";
 
 export function Home() {
   let navigate = useNavigate();

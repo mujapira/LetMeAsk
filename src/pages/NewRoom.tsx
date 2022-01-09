@@ -27,6 +27,9 @@ export function NewRoom() {
     });
 
     navigate(`/rooms/${firebaseRoom.key}`)
+
+    
+
   }
 
   return (
