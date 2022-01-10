@@ -3,18 +3,18 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../services/firebase";
 
 type User = {
-    id: string;
-    name: string;
-    avatar: string;
+  id: string;
+  name: string;
+  avatar: string;
 };
 
 type AuthContextType = {
-    user: User | undefined;
-    signInWithGoogle: () => Promise<void>;
+  user: User | undefined;
+  signInWithGoogle: () => Promise<void>;
 };
 
 type AuthContextProviderProps = {
-    children: ReactNode;
+  children: ReactNode;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -62,10 +62,9 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
   }
 
-  
   return (
     <AuthContext.Provider value={{ user, signInWithGoogle }}>
-        {props.children}
+      {props.children}
     </AuthContext.Provider>
   );
 }
