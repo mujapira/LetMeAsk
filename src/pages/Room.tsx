@@ -1,6 +1,6 @@
 import { ref, push, remove } from "firebase/database";
 import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
 import { Question } from "../components/Question";
@@ -20,8 +20,15 @@ export function Room() {
   const { user } = useAuth();
   const params = useParams<RoomParams>();
   const roomId = params.id;
-
   const { title, questions } = useRoom(roomId!);
+
+  const { signInWithGoogle } = useAuth();
+
+  async function handleLogin() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+  }
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -95,7 +102,7 @@ export function Room() {
               </div>
             ) : (
               <span>
-                Para enviar uma pergunta, <button>faça seu login</button>
+                Para enviar uma pergunta, <button onClick={handleLogin}>faça seu login</button>
               </span>
             )}
             <Button type="submit" disabled={!user}>

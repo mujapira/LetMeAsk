@@ -10,7 +10,7 @@ type User = {
 
 type AuthContextType = {
   user: User | undefined;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: (callback?: () => void) => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -43,7 +43,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     };
   }, []);
 
-  async function signInWithGoogle() {
+  async function signInWithGoogle(callback?: () => void) {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     const result = await signInWithPopup(auth, provider);
@@ -59,6 +59,9 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         name: displayName,
         avatar: photoURL,
       });
+      if (callback) {
+        callback();
+      }
     }
   }
 
