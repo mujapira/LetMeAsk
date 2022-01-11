@@ -66,6 +66,6 @@ export function useRoom(roomId: string) {
         return () => {
             off(roomRef)
         }
-    }, [roomId]);
+    }, [roomId, user?.id]);
     return { questions, title }
 }

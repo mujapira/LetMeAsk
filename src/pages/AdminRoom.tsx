@@ -1,11 +1,9 @@
-import { ref, push, remove, update } from "firebase/database";
-import { FormEvent, useState } from "react";
+import { ref, remove, update } from "firebase/database";
 import { useNavigate, useParams } from "react-router-dom";
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
 import { Question } from "../components/Question";
 import { RoomCode } from "../components/RoomCode";
-//import { useAuth } from "../hooks/useAuth";
 import "../styles/room.scss";
 import "../styles/question.scss";
 import { useRoom } from "../hooks/useRoom";
@@ -19,8 +17,7 @@ type RoomParams = {
 };
 
 export function AdminRoom() {
-  const [newQuestion, setNewQuestion] = useState("");
-  //  const { user } = useAuth();
+
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { title, questions } = useRoom(roomId!);
