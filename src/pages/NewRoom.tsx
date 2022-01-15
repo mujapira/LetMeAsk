@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import "../styles/auth.scss";
+
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { ref, push } from "firebase/database";

@@ -35,7 +35,6 @@
     .user-info {
       display: flex;
       align-items: center;
-    
 
       img {
         width: 32px;
@@ -79,6 +78,45 @@
 
       &:hover {
         filter: brightness(0.7);
+      }
+    }
+  }
+}
+
+.question .question-answer {
+  display: flex;
+  flex-direction: column;
+}
+
+.question-answer {
+  margin-top: 5px;
+  margin-left: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+  font-size: 1rem;
+  background: #c4c4da;
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      span {
+        margin-left: 8px;
+        color: #835afd;
+        font-weight: 500;
+        font-size: 1rem;
       }
     }
   }

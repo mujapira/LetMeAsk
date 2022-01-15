@@ -18,7 +18,10 @@ export function Home() {
     if (!user) {
       await signInWithGoogle(() => {
         navigate("/rooms/new");
-      });
+      }
+      );
+    } else {
+      navigate("/rooms/new")
     }
   }
 

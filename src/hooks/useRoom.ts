@@ -14,6 +14,15 @@ type FirebaseQuestions = Record<string, {
     likes: Record<string, {
         authorId: string;
     }>
+    answers: Record<string, {
+        id: string;
+        author: {
+            name: string;
+            avatar: string;
+        }
+        content: string;
+    }>
+
 }>
 
 type QuestionType = {
@@ -22,6 +31,14 @@ type QuestionType = {
         name: string;
         avatar: string;
     }
+    answers: {
+        id: string;
+        author: {
+            name: string;
+            avatar: string;
+        }
+        content: string;
+    }[]
     content: string;
     isAnswered: boolean;
     isHighlighted: boolean;
@@ -49,6 +66,7 @@ export function useRoom(roomId: string) {
                         return {
                             id: key,
                             content: value.content,
+                            answers: Object.values(value.answers ?? {}),
                             author: value.author,
                             isHighlighted: value.isHighlighted,
                             isAnswered: value.isAnswered,
@@ -56,7 +74,7 @@ export function useRoom(roomId: string) {
                             likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0],
                         }
                     })
-
+               
                 setTitle(databaseRoom.title);
                 setQuestions(parsedQuestions);
             },
@@ -69,3 +87,4 @@ export function useRoom(roomId: string) {
     }, [roomId, user?.id]);
     return { questions, title }
 }
+

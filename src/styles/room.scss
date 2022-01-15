@@ -108,6 +108,8 @@
 
     .question-list {
       margin-top: 32px;
+
+
     }
   }
 }
@@ -115,10 +117,9 @@
 @media (max-width: 870px) {
   #page-room {
     header {
-
       .content {
         padding: 10px;
-        gap:20px
+        gap: 20px;
       }
     }
 
