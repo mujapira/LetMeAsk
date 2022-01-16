@@ -1,33 +1,45 @@
-import { ref, remove, update, push, set } from "firebase/database";
-import { useNavigate, useParams } from "react-router-dom";
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
+import { useAnswer } from "../hooks/useAnswer";
+import checkImg from "../assets/images/check.svg";
+
+import { ref, remove, update, push, set } from "firebase/database";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles/room.scss";
 import "../styles/question.scss";
 import { useRoom } from "../hooks/useRoom";
 import { database } from "../services/firebase";
 import deleteImg from "../assets/images/delete.svg";
-import checkImg from "../assets/images/check.svg";
 import answerImg from "../assets/images/answer.svg";
 import { useAuth } from "../hooks/useAuth";
 import { FormEvent } from "react";
 import { useState } from "react";
 import { Question } from "../components/Question";
 import { QuestionAnswer } from "../components/QuestionAnswer";
-import { useAnswer } from "../hooks/useAnswer";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import Header from "../components/Header";
+import light from "../styles/themes/light";
+import dark from "../styles/themes/dark";
+import GlobalStyle from "../styles/global";
+import usePersistedState from "../hooks/usePersistedState";
 
 type RoomParams = {
   id: string;
 };
 
 export function AdminRoom() {
+  const [theme, setTheme] = usePersistedState<DefaultTheme>("theme", light);
   const { user } = useAuth();
   const params = useParams<RoomParams>();
   const roomId = params.id;
-  const { title, questions } = useRoom(roomId!);
   const navigate = useNavigate();
+  const { title, questions } = useRoom(roomId!);
   const [newAnswer, setNewAnswer] = useState("");
+
+  const toggleTheme = () => {
+    setTheme(theme.title === "light" ? dark : light);
+  };
 
   async function handleEndRoom() {
     await update(ref(database, `rooms/${roomId}`), {
@@ -99,18 +111,14 @@ export function AdminRoom() {
   }
 
   return (
+    
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Let me ask logo" />
-          <div>
-            <RoomCode code={roomId!} />
-            <Button isOutlined onClick={handleEndRoom}>
-              Encerrar sala
-            </Button>
-          </div>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <GlobalStyle />
+          <Header toggleTheme={toggleTheme} />
         </div>
-      </header>
+      </ThemeProvider>
 
       <main className="content">
         <div className="room-title">
