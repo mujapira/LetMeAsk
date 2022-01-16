@@ -1,5 +1,4 @@
 .question {
-  background: #fefefe;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -23,7 +22,7 @@
   }
 
   p {
-    color: #29292e;
+    text-align: left;
   }
 
   footer {
@@ -44,7 +43,6 @@
 
       span {
         margin-left: 8px;
-        color: #737380;
         font-weight: 500;
         font-size: 1rem;
       }
@@ -95,7 +93,6 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
   font-size: 1rem;
-  background: #c4c4da;
   footer {
     display: flex;
     justify-content: space-between;
@@ -114,7 +111,6 @@
 
       span {
         margin-left: 8px;
-        color: #835afd;
         font-weight: 500;
         font-size: 1rem;
       }
